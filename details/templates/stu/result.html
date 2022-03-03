@@ -1,0 +1,9 @@
+<!Doctype html>
+<h1>Result</h1>
+{% for data in form %}
+<h3>{{ data.studentName }}</h3>
+<h3>{{ data.studentAge }}</h3>
+<h3>{{ data.studentRoll }}</h3>
+{% endfor %}
+<a href="{% url 'stud:index' %}">go back</a>
+</html>
