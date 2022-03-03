@@ -18,5 +18,17 @@ def index(request):
 
 
 def result(request):
-    form = Student.objects.all()
+    form = Student.objects.order_by("studentName")
     return render(request, 'stu/result.html', {"form": form})
+
+
+def editstudent(request, pk):
+    form = Student.objects.get(id=pk)
+    context = {"form": form}
+    return render(request, 'stu/editprofile.html', context)
+
+
+def deletestudent(request, student_id):
+    student = Student.objects.get(pk=student_id)
+    context = {"student": student}
+    return render(request, 'stu/delete.html', context)

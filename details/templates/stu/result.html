@@ -1,9 +1,28 @@
 <!Doctype html>
+<style>
+    table, th, td{
+        border:1px solid black;
+    }
+    a {
+        outline: none;
+    }
+</style>
 <h1>Result</h1>
-{% for data in form %}
-<h3>{{ data.studentName }}</h3>
-<h3>{{ data.studentAge }}</h3>
-<h3>{{ data.studentRoll }}</h3>
-{% endfor %}
+<body>
+    <table style="width:100%">
+        <tr>
+            <th>Student Name</th>
+            <th>Student Age</th>
+            <th>Student Roll</th>
+        </tr>
+        {% for data in form %}
+        <tr>
+            <th><a style="color: white;outline: none;" href="{% url 'stud:edit' %}">{{ data.studentName }}</a></th>
+            <th>{{ data.studentAge }}</th>
+            <th>{{ data.studentRoll }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
 <a href="{% url 'stud:index' %}">go back</a>
 </html>

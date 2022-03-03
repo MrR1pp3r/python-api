@@ -6,5 +6,7 @@ from . import views
 app_name = 'stud'
 urlpatterns = [
     path('', views.index, name="index"),
-    path('result/', views.result, name='result')
+    path('result/', views.result, name='result'),
+    path('result/<int:pk>/edit/', views.editstudent, name='edit'),
+    path('delete/', views.deletestudent, name='delete')
 ]
