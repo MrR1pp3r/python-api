@@ -22,7 +22,7 @@
         {% for data in form %}
         <tr>
             <th>{{ data.id }}</th>
-            <th><a style="color: white;outline: none;" href="{% url 'stud:edit' data.id %}">{{ data.studentName }}</a></th>
+            <th>{{ data.studentName }}</th>
             <th>{{ data.studentAge }}</th>
             <th>{{ data.studentRoll }}</th>
             <th>
