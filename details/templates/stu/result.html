@@ -9,20 +9,32 @@
 </style>
 <h1>Result</h1>
 <body>
-    <table style="width:100%">
+
+        {% if form %}
+        <table style="width:100%">
         <tr>
+            <th>Student ID</th>
             <th>Student Name</th>
             <th>Student Age</th>
             <th>Student Roll</th>
+            <th>Operations</th>
         </tr>
         {% for data in form %}
         <tr>
-            <th><a style="color: white;outline: none;" href="{% url 'stud:edit' %}">{{ data.studentName }}</a></th>
+            <th>{{ data.id }}</th>
+            <th><a style="color: white;outline: none;" href="{% url 'stud:edit' data.id %}">{{ data.studentName }}</a></th>
             <th>{{ data.studentAge }}</th>
             <th>{{ data.studentRoll }}</th>
+            <th>
+                <a style="color: white;outline: none;" href="{% url 'stud:edit' data.id %}">Edit</a>
+                <a style="color: white;outline: none;" href="{% url 'stud:delete' data.id %}">Delete</a>
+            </th>
         </tr>
         {% endfor %}
+        {% else %}
+        <h1>EMPTY</h1>
+        {% endif %}
     </table>
 </body>
-<a href="{% url 'stud:index' %}">go back</a>
+<a href="{% url 'stud:index' %}" style="color: white;" >Add Data</a>
 </html>

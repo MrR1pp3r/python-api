@@ -1,10 +1,17 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.views import generic
 
 from details.form import FormStudent
 from details.models import Student
 # Create your views here.
+
+
+class DeleteForm(generic.DeleteView):
+    template_name = "stu/delete.html"
+    model = Student
+    success_url = "delete"
 
 
 def index(request):
@@ -18,17 +25,32 @@ def index(request):
 
 
 def result(request):
-    form = Student.objects.order_by("studentName")
-    return render(request, 'stu/result.html', {"form": form})
+    form = Student.objects.order_by("id")
+    context = {
+        "form": form,
+    }
+    return render(request, 'stu/result.html', context)
 
 
 def editstudent(request, pk):
-    form = Student.objects.get(id=pk)
+    form_id = Student.objects.get(pk=pk)
+    form = FormStudent(request.POST or None, instance=form_id)
+    if form.is_valid():
+        if form.changed_data:
+            form.save()
+            return HttpResponseRedirect(reverse("stud:result"))
+        return HttpResponse("DATA NOT CHANGED")
+
     context = {"form": form}
-    return render(request, 'stu/editprofile.html', context)
+    return render(request, 'stu/edit.html', context)
 
 
-def deletestudent(request, student_id):
-    student = Student.objects.get(pk=student_id)
-    context = {"student": student}
-    return render(request, 'stu/delete.html', context)
+def deletestudent(request, pk):
+    form_id = Student.objects.get(pk=pk)
+    postdata = FormStudent(request.POST or None, instance=form_id)
+    if postdata.is_valid() == False:
+        form_id.delete()
+        return HttpResponseRedirect(reverse("stud:result"))
+
+    return render(request, 'stu/delete.html')
+# return HttpResponseRedirect(reverse("stud:result"))
