@@ -7,6 +7,7 @@ class Student(models.Model):
     studentName = models.CharField(max_length=120)
     studentRoll = models.IntegerField()
     studentAge = models.IntegerField()
+    studentUID = models.IntegerField()
 
 
 class Course(models.Model):

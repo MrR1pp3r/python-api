@@ -5,8 +5,9 @@ from . import views
 
 app_name = 'stud'
 urlpatterns = [
-    path('', views.index, name="index"),
-    path('result/', views.result, name='result'),
-    path('result/<int:pk>/edit/', views.editstudent, name='edit'),
-    path('result/<int:pk>/delete/', views.deletestudent, name='delete')
+    path('', views.DemoForm.as_view(), name="demopage"),
+    # path('', views.index, name="index"),
+    # path('result/', views.result, name='result'),
+    # path('result/<int:pk>/edit/', views.editstudent, name='edit'),
+    # path('result/<int:pk>/delete/', views.deletestudent, name='delete')
 ]
